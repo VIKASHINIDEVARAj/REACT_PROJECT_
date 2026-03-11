@@ -11,7 +11,9 @@ connectDB();
 
 const app = express();
 app.use(cors({
-    origin: 'https://confapp.vercel.app'
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 
