@@ -18,7 +18,7 @@ const Login = () => {
       // Login aanathum direct-a Dashboard pogum
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed, kiddo!');
+      setError(err.response?.data?.message || 'Login failed');
     }
   };
 

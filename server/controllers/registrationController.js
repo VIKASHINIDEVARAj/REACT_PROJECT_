@@ -6,7 +6,7 @@ export const createRegistration = async (req, res) => {
     try {
         const { name, email, phone, college } = req.body;
 
-        // 1. Aagave register aagirukka nu check panrom
+     
         const existingReg = await Registration.findOne({ email });
         if (existingReg) {
             return res.status(400).json({ message: 'Email already registered, kiddo!' });
