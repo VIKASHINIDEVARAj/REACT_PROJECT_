@@ -8,13 +8,16 @@ const Dashboard = () => {
   const [ticket, setTicket] = useState(null);
   const [loading, setLoading] = useState(true);
 
+
   useEffect(() => {
-    // 1. Storage-la irunthu user-a thelivaa edukkurom
     const storedUser = localStorage.getItem('user');
-    if (!storedUser) {
-      navigate('/login');
-      return;
-    }
+  console.log("Checking Local Storage User:", storedUser); // Itha check pannu!
+  
+  if (!storedUser) {
+    console.log("No User Found! Redirecting...");
+    navigate('/login');
+    return;
+  }
     
     const parsedUser = JSON.parse(storedUser);
     setUser(parsedUser);

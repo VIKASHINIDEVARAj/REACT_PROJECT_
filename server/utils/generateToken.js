@@ -7,3 +7,7 @@ const generateToken = (id) => {
 };
 
 export default generateToken;
+// Server-la secret-a thedurom
+const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: '30d',
+});

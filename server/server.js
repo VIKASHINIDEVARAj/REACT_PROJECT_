@@ -10,17 +10,34 @@ dotenv.config();
 connectDB();
 
 const app = express();
+
+// CORS — only allow your Vercel frontend (and localhost for dev)
+const allowedOrigins = [
+  'http://localhost:5173',
+  process.env.CLIENT_URL,
+];
+
 app.use(cors({
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true,
 }));
+
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/registrations', registrationRoutes);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Health check — visit your Render URL to confirm it's live
+app.get('/', (req, res) => res.send('API is running...'));
+
 app.use(notFound);
 app.use(errorHandler);
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
